@@ -2,20 +2,17 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { LogIn, Mail, Lock } from 'lucide-react';
 
-interface FormData {
-  email: string;
-  password: string;
-}
 
 export default function LoginForm() {
-  const [formData, setFormData] = useState<FormData>({
+  const [data, setData] = useState({
     email: '',
     password: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const loginUser = (e) => {
     e.preventDefault();
-    console.log('Login:', formData);
+    console.log(e);
+    
   };
 
   return (
@@ -40,7 +37,7 @@ export default function LoginForm() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={loginUser}>
             <div>
               <label
                 htmlFor="email"
@@ -54,9 +51,9 @@ export default function LoginForm() {
                   name="email"
                   type="email"
                   required
-                  value={formData.email}
+                  value={data.email}
                   onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
+                    setData({ ...data, email: e.target.value })
                   }
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -77,9 +74,9 @@ export default function LoginForm() {
                   name="password"
                   type="password"
                   required
-                  value={formData.password}
+                  value={data.password}
                   onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
+                    setData({ ...data, password: e.target.value })
                   }
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />

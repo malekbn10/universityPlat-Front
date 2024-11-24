@@ -10,6 +10,46 @@ import LoginForm from './components/auth/LoginForm.tsx';
 import SignUpForm from './components/auth/SignUpForm.tsx';
 import OrientationForm from './components/OrientationForm.tsx';
 import ResultsTable from './components/ResultsTable.tsx';
+import {Toaster} from 'react-hot-toast'
+
+
+const mockResults = [
+  {
+    university: 'Riverside University',
+    specialties: [
+      {
+        name: 'Computer Science',
+        availablePlaces: 150,
+        requiredScore: 85,
+        distance: 12,
+      },
+      {
+        name: 'Software Engineering',
+        availablePlaces: 100,
+        requiredScore: 88,
+        distance: 12,
+      },
+    ],
+  },
+  {
+    university: 'Tech Institute',
+    specialties: [
+      {
+        name: 'Data Science',
+        availablePlaces: 75,
+        requiredScore: 82,
+        distance: 25,
+      },
+      {
+        name: 'Artificial Intelligence',
+        availablePlaces: 50,
+        requiredScore: 90,
+        distance: 25,
+      },
+    ],
+  },
+];
+
 
 function HomePage() {
   return (
@@ -33,6 +73,7 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen">
         <Navbar/>
+        <Toaster position='top-right' toastOptions={{duration:2000}}/>
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />

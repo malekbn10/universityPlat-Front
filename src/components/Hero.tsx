@@ -13,7 +13,7 @@ export default function Hero() {
             Shape Your Academic Future
           </h1>
           <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Discover the perfect university match for your academic journey with our
+            Discover the perfect university for your academic journey with our
             comprehensive orientation platform
           </p>
           <Link

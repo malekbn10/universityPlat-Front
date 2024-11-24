@@ -23,13 +23,6 @@ return `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
     ? 'bg-blue-700 text-white'
     : 'text-blue-100 hover:bg-blue-700 hover:text-white'
 }`;
-// const linkClass = (path: string) =>
-//   `px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-//     isActive(path)
-//       ? 'bg-blue-700 text-white'
-//       : 'text-blue-100 hover:bg-blue-700 hover:text-white'
-//   }`;
-
   }
   
   return (

@@ -1,25 +1,41 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserPlus, Mail, Lock, Calendar } from 'lucide-react';
+import  axios  from 'axios';
+import toast from 'react-hot-toast';
+import { all } from './../../../node_modules/axios/index.d';
 
-interface FormData {
-  fullName: string;
-  email: string;
-  password: string;
-  dateOfBirth: string;
-}
+
 
 export default function SignUpForm() {
-  const [formData, setFormData] = useState<FormData>({
+  const navigate =  useNavigate()
+  const [data, setData] = useState({
     fullName: '',
     email: '',
     password: '',
     dateOfBirth: '',
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const registerUser = async (e) => {
+
     e.preventDefault();
-    console.log('Sign up:', formData);
+    const {fullName,email,password,dateOfBirth} = data;
+    
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
+    console.log(apiUrl);
+    try {
+      const data = await axios.post(`${apiUrl}/auth/signup`,{fullName,email,password,dateOfBirth})
+      if (!data) {
+        toast.error(data);
+      }else{
+        setData({});
+        toast.success('Login Successful , Welcome !')
+        navigate('/')
+      }
+    } catch (error) {
+      console.log(error);
+      
+    }
   };
 
   return (
@@ -44,7 +60,7 @@ export default function SignUpForm() {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-6" onSubmit={registerUser}>
             <div>
               <label
                 htmlFor="fullName"
@@ -58,9 +74,9 @@ export default function SignUpForm() {
                   name="fullName"
                   type="text"
                   required
-                  value={formData.fullName}
+                  value={data.fullName}
                   onChange={(e) =>
-                    setFormData({ ...formData, fullName: e.target.value })
+                    setData({ ...data, fullName: e.target.value })
                   }
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -80,9 +96,9 @@ export default function SignUpForm() {
                   name="email"
                   type="email"
                   required
-                  value={formData.email}
+                  value={data.email}
                   onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
+                    setData({ ...data, email: e.target.value })
                   }
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -103,9 +119,9 @@ export default function SignUpForm() {
                   name="password"
                   type="password"
                   required
-                  value={formData.password}
+                  value={data.password}
                   onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
+                    setData({ ...data, password: e.target.value })
                   }
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -126,9 +142,9 @@ export default function SignUpForm() {
                   name="dateOfBirth"
                   type="date"
                   required
-                  value={formData.dateOfBirth}
+                  value={data.dateOfBirth}
                   onChange={(e) =>
-                    setFormData({ ...formData, dateOfBirth: e.target.value })
+                    setData({ ...data, dateOfBirth: e.target.value })
                   }
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />

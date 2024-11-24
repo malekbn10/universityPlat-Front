@@ -37,9 +37,9 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-semibold mb-4">Contact</h3>
             <ul className="space-y-2 text-blue-200">
-              <li>support@university.edu</li>
-              <li>+1 (555) 123-4567</li>
-              <li>123 University Ave</li>
+              <li>support@uniguide.tn</li>
+              <li>+216 98 765 432</li>
+              <li>123 Ariana Tunisia</li>
             </ul>
           </div>
           <div>

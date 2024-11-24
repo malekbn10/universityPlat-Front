@@ -19,16 +19,16 @@ export default function Contact() {
               Get in Touch
             </h2>
             <p className="text-gray-600 mb-8">
-              Have questions about our orientation process? We're here to help!
+              Have questions about your orientation process? We're here to help!
             </p>
             <div className="space-y-4">
               <div className="flex items-center">
                 <Mail className="h-6 w-6 text-blue-600 mr-3" />
-                <span>support@university.edu</span>
+                <span>support@uniguide.tn</span>
               </div>
               <div className="flex items-center">
                 <Phone className="h-6 w-6 text-blue-600 mr-3" />
-                <span>+1 (555) 123-4567</span>
+                <span>+216 98 765 432</span>
               </div>
               <div className="flex items-center">
                 <MessageSquare className="h-6 w-6 text-blue-600 mr-3" />
