@@ -1,17 +1,33 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LogIn, Mail, Lock } from 'lucide-react';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 
 export default function LoginForm() {
+  const navigate =  useNavigate()
   const [data, setData] = useState({
     email: '',
     password: '',
   });
 
-  const loginUser = (e) => {
+  const loginUser = async (e) => {
     e.preventDefault();
     console.log(e);
+    const {email,password} = data;
+    try {
+      const data = await axios.post('http://localhost:5000/auth/signin',{email,password})
+      if (!data) {
+        toast.error(data);
+      }else{
+        setData({});
+        toast.success('Login Successful , Welcome !')
+        navigate('/')
+      }
+    } catch (error) {
+      console.log(error);
+    }
     
   };
 

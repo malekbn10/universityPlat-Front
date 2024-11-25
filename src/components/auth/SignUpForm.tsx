@@ -21,15 +21,15 @@ export default function SignUpForm() {
     e.preventDefault();
     const {fullName,email,password,dateOfBirth} = data;
     
-    const apiUrl = process.env.REACT_APP_API_BASE_URL;
-    console.log(apiUrl);
+    // const apiUrl = process.env.REACT_APP_API_BASE_URL;
+    // console.log(apiUrl?.length);
     try {
-      const data = await axios.post(`${apiUrl}/auth/signup`,{fullName,email,password,dateOfBirth})
+      const data = await axios.post('http://localhost:5000/auth/signup',{fullName,email,password,dateOfBirth})
       if (!data) {
         toast.error(data);
       }else{
         setData({});
-        toast.success('Login Successful , Welcome !')
+        toast.success('Sign in Successful , Welcome !')
         navigate('/')
       }
     } catch (error) {
