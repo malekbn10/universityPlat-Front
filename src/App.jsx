@@ -11,6 +11,12 @@ import SignUpForm from './components/auth/SignUpForm.tsx';
 import OrientationForm from './components/OrientationForm.tsx';
 import ResultsTable from './components/ResultsTable.tsx';
 import {Toaster} from 'react-hot-toast'
+import React, { useState } from 'react';
+import Sidebar from './components/admin/Sidebar';
+import EventsPanel from './components/admin/EventsPanel';
+import DocumentsPanel from './components/admin/DocumentsPanel';
+import UsersPanel from './components/admin/UsersPanel';
+import Dashboard from './components/admin/Dashboard.tsx';
 
 
 const mockResults = [
@@ -75,7 +81,7 @@ function App() {
         <Navbar/>
         <Toaster position='top-right' toastOptions={{duration:2000}}/>
         <main className="flex-grow">
-          <Routes>
+          <Routes >
             <Route path="/" element={<HomePage />} />
             <Route path="/orientation" element={<OrientationPage />} />
             <Route path="/events" element={<Events />} />
@@ -83,6 +89,13 @@ function App() {
 
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignUpForm />} />
+          </Routes>
+          <Routes path="admin">
+            <Route path="/Dashboard" element ={<Dashboard/>} />
+            <Route path="/Documents" element ={<DocumentsPanel/>} />
+            <Route path="/Events" element ={<EventsPanel/>} />
+            <Route path="/Users" element ={<UsersPanel/>} />
+
           </Routes>
         </main>
         <Footer/>
