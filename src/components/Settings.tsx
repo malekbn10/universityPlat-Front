@@ -1,10 +1,11 @@
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 import { Save, User } from 'lucide-react';
 import React, { useEffect, useState } from 'react'
 
 export default function Settings() {
   const [email,setUserEmail] = useState('');
-
+  const [token ,setToken] =useState('')
     const myToken = localStorage.getItem('token');
 
     useEffect(()=>{
@@ -17,7 +18,7 @@ export default function Settings() {
 
 //a modifier
 const getUser = async () =>{
-    const req = await axios.get("http://localhost:5000/" ,email ).then(
+    const req = await axios.get(`http://localhost:5000/${email}`  ).then(
         response =>{
             const [formData, setFormData] = useState({
                 fullName:response.data.name ,

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LogIn, Mail, Lock } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { jwtDecode } from 'jwt-decode';
 
 
 
@@ -31,7 +32,15 @@ export default function LoginForm() {
         console.log(response.data.token)
 
         toast.success(`Login Successful , Welcome ${response.data.name}!`)
+        const role = jwtDecode(token)['role'];
+        
+        if (role==="user") {
         navigate('/')
+          
+        } else if(role ==="admin") {
+        navigate('/Dashboard')
+          
+        }
         }
       ).catch(
         error=>{
