@@ -10,7 +10,7 @@ import { all } from './../../../node_modules/axios/index.d';
 export default function SignUpForm() {
   const navigate =  useNavigate()
   const [data, setData] = useState({
-    fullName: '',
+    name: '',
     email: '',
     password: '',
     dateOfBirth: '',
@@ -19,14 +19,17 @@ export default function SignUpForm() {
   const registerUser = async (e) => {
 
     e.preventDefault();
-    const {fullName,email,password,dateOfBirth} = data;
+    const {name,email,password,dateOfBirth} = data;
     
     // const apiUrl = process.env.REACT_APP_API_BASE_URL;
     // console.log(apiUrl?.length);
     try {
-      const data = await axios.post('http://localhost:5000/auth/signup',{fullName,email,password,dateOfBirth})
-      if (!data) {
-        toast.error(data);
+      const data = await axios.post('http://localhost:5000/auth/signup',{name,email,password,dateOfBirth})
+      let msg = data.data.statusCode
+      console.log(msg);
+      
+      if (!(msg = "200")) {
+        toast.error("Invalid Credential");
       }else{
         setData({});
         toast.success('Sign in Successful , Welcome !')
@@ -63,20 +66,20 @@ export default function SignUpForm() {
           <form className="space-y-6" onSubmit={registerUser}>
             <div>
               <label
-                htmlFor="fullName"
+                htmlFor="name"
                 className="block text-sm font-medium text-gray-700"
               >
                 Full Name
               </label>
               <div className="mt-1">
                 <input
-                  id="fullName"
-                  name="fullName"
+                  id="name"
+                  name="name"
                   type="text"
                   required
-                  value={data.fullName}
+                  value={data.name}
                   onChange={(e) =>
-                    setData({ ...data, fullName: e.target.value })
+                    setData({ ...data, name: e.target.value })
                   }
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                 />

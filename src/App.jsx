@@ -11,6 +11,7 @@ import SignUpForm from './components/auth/SignUpForm.tsx';
 import OrientationForm from './components/OrientationForm.tsx';
 import ResultsTable from './components/ResultsTable.tsx';
 import {Toaster} from 'react-hot-toast'
+import Settings from './components/Settings.jsx';
 
 
 const mockResults = [
@@ -73,14 +74,14 @@ function App() {
   return (
     <div className="flex flex-col min-h-screen">
         <Navbar/>
-        <Toaster position='top-right' toastOptions={{duration:2000}}/>
+        <Toaster position='top-right' toastOptions={{duration:3000 }}/>
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/orientation" element={<OrientationPage />} />
             <Route path="/events" element={<Events />} />
             <Route path="/contact" element={<Contact />} />
-
+            <Route path='/settings' element={<Settings/>}/>
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignUpForm />} />
           </Routes>

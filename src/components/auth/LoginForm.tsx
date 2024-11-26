@@ -5,6 +5,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 
 
+
 export default function LoginForm() {
   const navigate =  useNavigate()
   const [data, setData] = useState({
@@ -16,19 +17,30 @@ export default function LoginForm() {
     e.preventDefault();
     console.log(e);
     const {email,password} = data;
-    try {
-      const data = await axios.post('http://localhost:5000/auth/signin',{email,password})
-      if (!data) {
-        toast.error(data);
-      }else{
-        setData({});
-        toast.success('Login Successful , Welcome !')
+      const req = await axios.post('http://localhost:5000/auth/signin',{email,password}).then(
+        response =>{
+          // console.log(response)
+          setData({email,password});
+          const token = response.data.token;
+          
+
+          // console.log(jwtdecode['name']);
+          // useEffect(setName())
+          localStorage.setItem('token',token)
+
+        console.log(response.data.token)
+
+        toast.success(`Login Successful , Welcome ${response.data.name}!`)
         navigate('/')
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    
+        }
+      ).catch(
+        error=>{
+          // console.log(error);
+          toast.error("Invalid Credentials")
+          // toast.error(`${error.response.data.message}`)
+          
+        }
+      )
   };
 
   return (
