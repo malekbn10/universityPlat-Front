@@ -17,10 +17,10 @@ import EventsPanel from "./components/admin/EventsPanel";
 import DocumentsPanel from "./components/admin/DocumentsPanel";
 import UsersPanel from "./components/admin/UsersPanel";
 import Dashboard from "./components/admin/Dashboard.tsx";
-import ProtectedRouteUser from './components/router/ProtectedRouteUser.jsx';
+import ProtectedRouteUser from "./components/router/ProtectedRouteUser.jsx";
 import ProtectedRouteAdmin from "./components/router/ProtectedRouteAdmin.jsx";
 import { jwtDecode } from "jwt-decode";
-import { ca } from './../node_modules/date-fns/locale/ca';
+import { ca } from "./../node_modules/date-fns/locale/ca";
 
 const mockResults = [
   {
@@ -78,68 +78,68 @@ function OrientationPage() {
   );
 }
 function App() {
-    const [activeTab , setActiveTab] = useState('dashboard');
-    const renderContent = ()=>{
-      switch (activeTab) {
-        case 'events':
-          
-          return <EventsPanel/>;
-      case  'documents' :
-        return <DocumentsPanel/>;
-        case 'users' : 
-        return <UsersPanel/>
-        default:
-          return (
-            <div className="p-6">
-              <h2 className="text-2xl font-bold text-gray-800 mb-6">Dashboard</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">Total Users</h3>
-                  <p className="text-3xl font-bold text-indigo-600">0</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">Upcoming Events</h3>
-                  <p className="text-3xl font-bold text-indigo-600">0</p>
-                </div>
-                <div className="bg-white p-6 rounded-lg shadow-md">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-2">Documents</h3>
-                  <p className="text-3xl font-bold text-indigo-600">0</p>
-                </div>
+  const [activeTab, setActiveTab] = useState("dashboard");
+  const renderContent = () => {
+    switch (activeTab) {
+      case "events":
+        return <EventsPanel />;
+      case "documents":
+        return <DocumentsPanel />;
+      case "users":
+        return <UsersPanel />;
+      default:
+        return (
+          <div className="p-6">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">Dashboard</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  Total Users
+                </h3>
+                <p className="text-3xl font-bold text-indigo-600">0</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  Upcoming Events
+                </h3>
+                <p className="text-3xl font-bold text-indigo-600">0</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                  Documents
+                </h3>
+                <p className="text-3xl font-bold text-indigo-600">0</p>
               </div>
             </div>
-          );
-          
-      }
+          </div>
+        );
     }
+  };
 
-    function Navbars(){
-      const token = localStorage.getItem('token')
-      if (!token) {
-        return(<Navbar />)
-        
-    // console.log(`role ${role}`);
-  
-      }
-      const decod = jwtDecode(token); 
-   const role = decod['role'];
-   console.log(role)
-   
+  function Navbars() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      return <Navbar />;
+
+      // console.log(`role ${role}`);
+    }
+    const decod = jwtDecode(token);
+    const role = decod["role"];
+    console.log(role);
+
     return (
       <div>
-    { role=="admin"?(
-          <Sidebar activeTab={activeTab}  setActiveTab={setActiveTab} />
-          
-        ):(
+        {role == "admin" ? (
+          <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+        ) : (
           <Navbar />
-  
         )}
       </div>
-      
     );
   }
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbars/>
+      <Navbars />
 
       <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
       <main className="flex-grow">
@@ -149,23 +149,22 @@ function App() {
 
           <Route path="/login" element={<LoginForm />} />
           <Route path="/signup" element={<SignUpForm />} />
-          <Route element={<ProtectedRouteUser/>}>
-          <Route path="/orientation" element={<OrientationPage />} />
-          <Route path="/events" element={<Events />} />
+          <Route element={<ProtectedRouteUser />}>
+            <Route path="/orientation" element={<OrientationPage />} />
+            <Route path="/events" element={<Events />} />
 
-          {/* </Route> */}
-          {/* <Route path='/settings' element={<Settings/>}/> */}
-          {/* <Route element={<ProtectedRouteAdmin />}>
+            {/* </Route> */}
+            {/* <Route path='/settings' element={<Settings/>}/> */}
+            {/* <Route element={<ProtectedRouteAdmin />}>
             <Route path="/admin" element={<Sidebar/>}>
             {/* <Route path="/Dashboard" element={<Dashboard/>} /> */}
             {/* {renderContent()} */}
 
-            {/* <Route path="/Documents" element={<DocumentsPanel />} />
-            <Route path="/Events" element={<EventsPanel />} />
-            <Route path="/Users" element={<UsersPanel />} /> */}
             {/* </Route> */}
-           
-          </Route> 
+          </Route>
+          <Route path="/documents" element={<DocumentsPanel />} />
+          <Route path="/eventsAdmin" element={<EventsPanel />} />
+          <Route path="/users" element={<UsersPanel />} />
         </Routes>
       </main>
       <Footer />
