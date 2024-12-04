@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LogIn, Mail, Lock } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { jwtDecode } from 'jwt-decode';
+
 
 
 export default function LoginForm() {
@@ -16,19 +18,38 @@ export default function LoginForm() {
     e.preventDefault();
     console.log(e);
     const {email,password} = data;
-    try {
-      const data = await axios.post('http://localhost:5000/auth/signin',{email,password})
-      if (!data) {
-        toast.error(data);
-      }else{
-        setData({});
-        toast.success('Login Successful , Welcome !')
+      const req = await axios.post('http://localhost:5000/auth/signin',{email,password}).then(
+        response =>{
+          // console.log(response)
+          setData({email,password});
+          const token = response.data.token;
+          
+
+          // console.log(jwtdecode['name']);
+          // useEffect(setName())
+          localStorage.setItem('token',token)
+
+        console.log(response.data.token)
+
+        toast.success(`Login Successful , Welcome ${response.data.name}!`)
+        const role = jwtDecode(token)['role'];
+        
+        if (role==="user") {
         navigate('/')
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    
+          
+        } else if(role ==="admin") {
+        navigate('/Dashboard')
+          
+        }
+        }
+      ).catch(
+        error=>{
+          // console.log(error);
+          toast.error("Invalid Credentials")
+          // toast.error(`${error.response.data.message}`)
+          
+        }
+      )
   };
 
   return (
